@@ -1,0 +1,34 @@
+<h1> Oh heyyy twitter </h1>
+
+<div>
+<%= form_for(@search) do |f| %>
+	Search Term: <%= f.text_field :term %>
+	<%= f.submit %>
+<% end %>
+</div>
+
+	<%= @twt %><br>
+
+<% @tweets.each do |t| %>
+	<%= t %> <br>
+<% end %>
+
+<%= @t1 %> <br><br>
+
+<% @tweets.each do |ttt| %>
+	<% hasht = ttt.to_h %>
+    <%= hasht[:text] %> <br>
+    <%= hasht[:created_at] %> <br>
+    <%= hasht[:user][:location] %> <br>
+    <%= hasht[:coordinates] %> <br>
+<% end %>
+
+<%= @text %> <br>
+<%= @created_at %> <br>
+<%= @location %> <br> <br>
+<%= @coordinates %>
+
+
+
+
+
