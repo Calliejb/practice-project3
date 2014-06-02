@@ -12,12 +12,14 @@
 
 <%= @t1 %> <br><br>
 
-<% @tweets.each do |ttt| %>
-	<% hasht = ttt.to_h %>
-    <%= hasht[:text] %> <br>
-    <%= hasht[:created_at] %> <br>
-    <%= hasht[:user][:location] %> <br>
-    <%= hasht[:coordinates] %> <br>
+<% @tweets.each do |t| %>
+	<% hasht = t.to_h %>
+	<% if hasht[:coordinates] == nil %>
+		.
+	<% else %>
+
+    	<%= hasht[:coordinates] %> <br>
+    <% end %>
 <% end %>
 
 <%= @text %> <br>

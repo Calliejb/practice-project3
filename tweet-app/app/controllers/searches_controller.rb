@@ -12,34 +12,14 @@ class SearchesController < ApplicationController
   	  config.access_token_secret = "nGsiCp8tgYZ90CbDSfDjgB4ytCnF9GqXbb40XLetkGPpi"
   	end
 
-  	# @searches = Search.all
     if params.has_key?(:term) && params[:term] != ""
-    	@tweets = twitter.search(params[:term], result_type: "recent").take(10)
-    	t = @tweets
+    	@tweets = twitter.search(params[:term], result_type: "recent").take(10000)
     	@t1 = @tweets[0].to_h
 
-      t.each do |ttt|
-        hasht = ttt.to_h
-        @text = hasht[:text]
-        @created_at = hasht[:created_at]
-        @location = hasht[:user][:location]
-        @coordinates = hasht[:coordinates]
-      end
-
     else
-      @tweets = twitter.search("cool", result_type: "recent").take(100)
-      t = @tweets
+      @tweets = twitter.search("geo", result_type: "recent").take(100)
       @t1 = @tweets[0].to_h
-
-      t.each do |ttt|
-        hasht = ttt.to_h
-        @text = hasht[:text]
-        @created_at = hasht[:created_at]
-        @location = hasht[:user][:location]
-        @coordinates = hasht[:coordinates]
-      end
     end
-
 
   	
   	twitter.search(:term, result_type: "recent").take(5).each do |tweet|
