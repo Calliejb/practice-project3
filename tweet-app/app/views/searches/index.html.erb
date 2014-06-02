@@ -1,17 +1,14 @@
 <h1> Oh heyyy twitter </h1>
 
 <div>
-<%= form_for(@search) do |f| %>
-	Search Term: <%= f.text_field :term %>
-	<%= f.submit %>
+<%= form_tag searches_path, :method => 'get' do %>
+    <%= text_field_tag :term, params[:term] %>
+    <%= submit_tag "Search" %>
 <% end %>
 </div>
 
-	<%= @twt %><br>
 
-<% @tweets.each do |t| %>
-	<%= t %> <br>
-<% end %>
+
 
 <%= @t1 %> <br><br>
 

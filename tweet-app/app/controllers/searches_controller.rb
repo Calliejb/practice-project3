@@ -3,10 +3,6 @@ class SearchesController < ApplicationController
 	require 'twitter'
   def index
   	@searches = Search.all
-  	@search = Search.new(params[:term])
-
-
-
 
 
   	twitter = Twitter::REST::Client.new do |config|
@@ -17,22 +13,36 @@ class SearchesController < ApplicationController
   	end
 
   	# @searches = Search.all
+    if params.has_key?(:term) && params[:term] != ""
+    	@tweets = twitter.search(params[:term], result_type: "recent").take(10)
+    	t = @tweets
+    	@t1 = @tweets[0].to_h
 
-  	@tweets = twitter.search("summer", result_type: "recent").take(1000)
-  	t = @tweets
-  	@t1 = @tweets[0].to_h
+      t.each do |ttt|
+        hasht = ttt.to_h
+        @text = hasht[:text]
+        @created_at = hasht[:created_at]
+        @location = hasht[:user][:location]
+        @coordinates = hasht[:coordinates]
+      end
 
-    t.each do |ttt|
-      hasht = ttt.to_h
-      @text = hasht[:text]
-      @created_at = hasht[:created_at]
-      @location = hasht[:user][:location]
-      @coordinates = hasht[:coordinates]
+    else
+      @tweets = twitter.search("cool", result_type: "recent").take(100)
+      t = @tweets
+      @t1 = @tweets[0].to_h
+
+      t.each do |ttt|
+        hasht = ttt.to_h
+        @text = hasht[:text]
+        @created_at = hasht[:created_at]
+        @location = hasht[:user][:location]
+        @coordinates = hasht[:coordinates]
+      end
     end
 
 
   	
-  	twitter.search("hello", result_type: "recent").take(5).each do |tweet|
+  	twitter.search(:term, result_type: "recent").take(5).each do |tweet|
   		@twt = tweet.text
   	end
 
