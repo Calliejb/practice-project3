@@ -1,0 +1,42 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<h1>Listing beers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Abv</th>
+      <th>Brewery</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @beers.each do |beer| %>
+      <tr>
+        <td><%= beer.name %></td>
+        <td><%= beer.abv %></td>
+        <td><%= beer.brewery %></td>
+        <td><%= link_to 'Show', beer %></td>
+        <td><%= link_to 'Edit', edit_beer_path(beer) %></td>
+        <td><%= link_to 'Destroy', beer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Beer', new_beer_path %>
+
+
+<script>
+$.getJSON("http://api.openbeerdatabase.com/v1/breweries.json?callback=?", function(response) {
+  $(response.breweries).each(function() {
+    $("#example-breweries").append($("<li>", { text : this.name }));
+  });
+});
+</script>

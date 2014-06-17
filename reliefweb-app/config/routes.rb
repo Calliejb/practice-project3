@@ -1,6 +1,7 @@
 ReliefwebApp::Application.routes.draw do
-  get "disasters/index"
-  get "disasters/show"
+
+  resources :disasters
+  root 'disasters#chart'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

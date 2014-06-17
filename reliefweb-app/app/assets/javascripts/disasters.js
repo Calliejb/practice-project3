@@ -9,15 +9,18 @@ var disasterApp = angular.module('disasterApp', ['ngResource']).config(
     defaults.common['Accept'] = 'application/json';
 }]);
 
-disasterApp.factory('DisasterFactory', ['$resource', function($resource) {
-  return $resource('http://api.rwlabs.org/v1/disasters/',
+disasterApp.factory('Disaster', ['$resource', function($resource) {
+  return $resource('http://api.rwlabs.org/v1/disasters/:id',
      {id: '@id'},
-     {update: { method: 'PATCH'}});
+     {index: { method: 'GET', isArray: true},
+      update: { method: 'PATCH'},
+      save: {method: 'POST'}});
 }]);
 
-disasterApp.controller('DisasterCtrl', ['$scope', 'DisasterFactory', function($scope, Yogurt) {
+disasterApp.controller('DisasterCtrl', ['$scope', 'Disaster', function($scope, Yogurt) {
 	
 	$scope.disasters = [];
+  
 
 	DisasterFactory.query(function(disasters) {
 		$scope.disasters = disasters;
