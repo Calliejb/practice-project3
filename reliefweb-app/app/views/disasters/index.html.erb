@@ -1,12 +1,13 @@
-<div ng-app="disasterApp">
-	<div ng-controller="DisasterCtrl">
+
+<h1> Disasters </h1>
+
+<% @countries.each do |c| %>
+	<%= c %>
+<% end %>
+
+<% @disasters.each do |d| %>
+	<%= d %><br>
+<% end %>
 
 
-		<h1>Disasters#index</h1>
 
-		<div ng-repeat="dis in disasters">
-			{{dis}}
-		</div>
-
-	</div>
-</div>
